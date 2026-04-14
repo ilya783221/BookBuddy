@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: BookBuddy
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookbuddy
+    username: myuser
+    password: 11111
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+server:
+  port: 8080
