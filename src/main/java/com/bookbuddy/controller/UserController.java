@@ -1,5 +1,6 @@
 package com.bookbuddy.controller;
 
+import com.bookbuddy.dto.UserCreateDto;
 import com.bookbuddy.dto.UserDto;
 import com.bookbuddy.service.UserService;
 import jakarta.validation.Valid;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody @Valid UserDto dto){
+    public UserDto createUser(@RequestBody @Valid UserCreateDto dto){
         return userService.create(dto);
     }
 

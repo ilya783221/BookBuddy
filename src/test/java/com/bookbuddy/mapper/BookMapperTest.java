@@ -1,5 +1,6 @@
 package com.bookbuddy.mapper;
 
+import com.bookbuddy.dto.BookCreateDto;
 import com.bookbuddy.dto.BookDto;
 import com.bookbuddy.model.Book;
 import org.junit.jupiter.api.Test;
@@ -22,8 +23,6 @@ class BookMapperTest {
 
         BookDto dto = mapper.toDto(book);
 
-        System.out.println(dto);
-
         assertNotNull(dto);
         assertEquals(book.getId(), dto.getId());
         assertEquals(book.getTitle(), dto.getTitle());
@@ -31,16 +30,15 @@ class BookMapperTest {
 
     @Test
     void shouldMapToEntity() {
-        BookDto dto = new BookDto();
-        dto.setId(UUID.randomUUID());
+        BookCreateDto dto = new BookCreateDto();
         dto.setTitle("Another Book");
+        dto.setAuthor("Author");
+        dto.setPublishedYear(2020);
+        dto.setGenre("Drama");
 
         Book book = mapper.toEntity(dto);
 
-        System.out.println(book);
-
         assertNotNull(book);
-        assertEquals(dto.getId(), book.getId());
         assertEquals(dto.getTitle(), book.getTitle());
     }
 }

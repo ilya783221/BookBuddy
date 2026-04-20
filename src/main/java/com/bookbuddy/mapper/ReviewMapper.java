@@ -1,5 +1,6 @@
 package com.bookbuddy.mapper;
 
+import com.bookbuddy.dto.ReviewCreateDto;
 import com.bookbuddy.dto.ReviewDto;
 import com.bookbuddy.model.Review;
 import org.mapstruct.Mapper;
@@ -14,6 +15,6 @@ public interface ReviewMapper {
 
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "book", ignore = true)
-    Review toEntity(ReviewDto dto);
+    Review toEntity(ReviewCreateDto dto);
 }
 

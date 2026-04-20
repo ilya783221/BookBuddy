@@ -1,5 +1,6 @@
 package com.bookbuddy.service;
 
+import com.bookbuddy.dto.UserCreateDto;
 import com.bookbuddy.dto.UserDto;
 import com.bookbuddy.exception.notfound.UserNotFoundException;
 import com.bookbuddy.mapper.UserMapper;
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public UserDto create(UserDto dto) {
+    public UserDto create(UserCreateDto dto) {
         User user = userMapper.toEntity(dto);
         return userMapper.toDto(userRepository.save(user));
     }

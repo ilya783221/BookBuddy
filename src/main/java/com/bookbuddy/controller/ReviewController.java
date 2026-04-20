@@ -1,5 +1,6 @@
 package com.bookbuddy.controller;
 
+import com.bookbuddy.dto.ReviewCreateDto;
 import com.bookbuddy.dto.ReviewDto;
 import com.bookbuddy.service.ReviewService;
 import jakarta.validation.Valid;
@@ -18,11 +19,11 @@ public class ReviewController {
 
     @GetMapping("book/{bookId}")
     public List<ReviewDto> getReviewsByBookId(@PathVariable UUID bookId){
-        return reviewService.getBookId(bookId);
+        return reviewService.getByBookId(bookId);
     }
 
     @PostMapping
-    public ReviewDto createReview(@RequestBody @Valid ReviewDto dto){
+    public ReviewDto createReview(@RequestBody @Valid ReviewCreateDto dto){
         return reviewService.create(dto);
     }
 }

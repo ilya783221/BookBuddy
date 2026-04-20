@@ -1,6 +1,8 @@
 package com.bookbuddy.controller;
 
+import com.bookbuddy.dto.BookCreateDto;
 import com.bookbuddy.dto.BookDto;
+import com.bookbuddy.dto.BookUpdateDto;
 import com.bookbuddy.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +34,13 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDto createBook(@RequestBody @Valid BookDto dto){
+    public BookDto createBook(@RequestBody @Valid BookCreateDto dto){
         return bookService.create(dto);
     }
 
     @PutMapping("/{id}")
     public BookDto updateBook(@PathVariable UUID id,
-                              @RequestBody @Valid BookDto dto){
+                              @RequestBody @Valid BookUpdateDto dto){
         return bookService.update(id, dto);
     }
 
