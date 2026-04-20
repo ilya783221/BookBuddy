@@ -12,12 +12,6 @@ import java.util.UUID;
 public class UserDto {
 
     private UUID id;
-
-    @NotBlank(message = "Name is required")
-    @Size(max = 255, message = "Name too long")
     private String name;
-
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
     private String email;
 }

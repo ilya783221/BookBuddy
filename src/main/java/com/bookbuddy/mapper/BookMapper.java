@@ -1,5 +1,6 @@
 package com.bookbuddy.mapper;
 
+import com.bookbuddy.dto.BookCreateDto;
 import com.bookbuddy.dto.BookDto;
 import com.bookbuddy.model.Book;
 import org.mapstruct.Mapper;
@@ -9,5 +10,5 @@ public interface BookMapper {
 
     BookDto toDto(Book book);
 
-    Book toEntity(BookDto dto);
+    Book toEntity(BookCreateDto dto);
 }

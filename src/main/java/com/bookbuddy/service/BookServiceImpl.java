@@ -1,6 +1,8 @@
 package com.bookbuddy.service;
 
+import com.bookbuddy.dto.BookCreateDto;
 import com.bookbuddy.dto.BookDto;
+import com.bookbuddy.dto.BookUpdateDto;
 import com.bookbuddy.exception.notfound.BookNotFoundException;
 import com.bookbuddy.mapper.BookMapper;
 import com.bookbuddy.model.Book;
@@ -21,7 +23,7 @@ public class BookServiceImpl implements BookService{
     private final BookMapper bookMapper;
 
     @Override
-    public BookDto create(BookDto dto) {
+    public BookDto create(BookCreateDto dto) {
         Book book = bookMapper.toEntity(dto);
         Book saved = bookRepository.save(book);
         return bookMapper.toDto(saved);
@@ -42,7 +44,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public BookDto update(UUID id, BookDto dto) {
+    public BookDto update(UUID id, BookUpdateDto dto) {
 
         Book existing = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("Book not found"));

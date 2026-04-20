@@ -1,5 +1,6 @@
 package com.bookbuddy.service;
 
+import com.bookbuddy.dto.ReviewCreateDto;
 import com.bookbuddy.dto.ReviewDto;
 import com.bookbuddy.exception.notfound.BookNotFoundException;
 import com.bookbuddy.exception.notfound.UserNotFoundException;
@@ -26,7 +27,7 @@ public class ReviewServiceImpl implements ReviewService{
     private final ReviewMapper reviewMapper;
 
     @Override
-    public ReviewDto create(ReviewDto dto) {
+    public ReviewDto create(ReviewCreateDto dto) {
 
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -45,7 +46,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<ReviewDto> getBookId(UUID bookId) {
+    public List<ReviewDto> getByBookId(UUID bookId) {
         return reviewRepository.findByBookId(bookId)
                 .stream()
                 .map(reviewMapper::toDto)
