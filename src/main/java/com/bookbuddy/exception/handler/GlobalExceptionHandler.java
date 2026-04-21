@@ -1,5 +1,6 @@
 package com.bookbuddy.exception.handler;
 
+import com.bookbuddy.dto.ErrorResponse;
 import com.bookbuddy.exception.notfound.BookNotFoundException;
 import com.bookbuddy.exception.notfound.UserNotFoundException;
 import com.bookbuddy.exception.validation.BadRequestException;
@@ -13,21 +14,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    private Map<String, Object> buildResponse(String message, HttpStatus status) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", status.value());
-        body.put("error", status.getReasonPhrase());
-        body.put("message", message);
-        return body;
+    private ErrorResponse buildResponse(String message, HttpStatus status) {
+        return ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(status.value())
+                .error(status.getReasonPhrase())
+                .message(message)
+                .build();
     }
 
     @ExceptionHandler(BookNotFoundException.class)
@@ -86,7 +85,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleOther(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleOther(Exception ex) {
 
         log.error("Unexpected error occurred", ex);
 
