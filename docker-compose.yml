@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: postgres_bookbuddy
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-bookbuddy}
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-11111}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myuser} -d ${POSTGRES_DB:-bookbuddy}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  bookbuddy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookbuddy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-bookbuddy}
+      DB_USERNAME: ${POSTGRES_USER:-myuser}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-11111}
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

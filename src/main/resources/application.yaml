@@ -3,9 +3,9 @@ spring:
     name: BookBuddy
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/bookbuddy
-    username: myuser
-    password: 11111
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/bookbuddy}
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:11111}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -42,4 +42,4 @@ info:
     version: 1.0.0
 
 server:
-  port: 8080
+  port: ${PORT:8080}
